@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050811">
+    <title>Cibitka | Python Web Developer</title>
+    <meta name="description" content="Cibitka — Python-разработчик. Веб-приложения, асинхронные API, Telegram-боты, парсеры и автоматизация.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cibitka | Python Web Developer">
+    <meta property="og:description" content="Разработка веб-приложений, API, ботов и интеграций.">
+    <meta property="og:locale" content="ru_RU">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!-- Топографический фон -->
+    <canvas id="topo-canvas" aria-hidden="true"></canvas>
+
+    <!-- Навигация -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#about" class="logo">&lt;Cibitka  <span class="matrix-slash">/</span>&gt;</a>
+            <nav class="nav-links" aria-label="Основная навигация">
+                <a href="#about">О себе</a>
+                <a href="#services">Услуги</a>
+                <a href="#process">Процесс</a>
+                <a href="#skills">Стек</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero / О себе -->
+        <section id="about" class="hero">
+            <div class="hero-content">
+                <p class="greeting">Привет, я</p>
+
+                <h1 class="sr-only">Александр — Python Web Developer</h1>
+                <div class="interactive-text-container">
+                    <canvas id="text-canvas" aria-hidden="true"></canvas>
+                </div>
+
+                <!-- Кнопки действия -->
+                <div class="hero-btns">
+                    <a href="#services" class="btn primary-btn">Услуги</a>
+                    <a href="#contact" class="btn secondary-btn">Связаться</a>
+                </div>
+
+                <!-- Метрики -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-num">3+</span>
+                        <span class="stat-desc">года опыта</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">∞</span>
+                        <span class="stat-desc">идей и решений</span>
+                    </div>
+                </div>
+
+                <!-- Перенесенный блок с текстом без лишней плашки справа -->
+                <div class="about-card">
+                    <p>
+                        Я — Python-разработчик, специализирующийся на создании быстрых веб-сервисов, надежных асинхронных API и автоматизации любых процессов. Проектирую архитектуру с акцентом на высокую скорость работы, чистый код и отказоустойчивость.
+                    </p>
+                    <p>
+                        Мой приоритет — понятный результат: от удобного взаимодействия до готового решения, которое легко поддерживать и масштабировать под любые задачи.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Услуги -->
+        <section id="services" class="section">
+            <h2 class="section-title">Чем могу помочь</h2>
+            <div class="services-grid">
+                
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Backend & API</h3>
+                    <p>Проектирование и разработка чистых, быстрых асинхронных RESTful и WebSocket API для современных проектов.</p>
+                    <div class="tags">
+                        <span class="tag">FASTAPI</span>
+                        <span class="tag">DJANGO / DRF</span>
+                        <span class="tag">POSTGRESQL</span>
+                        <span class="tag">REDIS</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3>Telegram Боты & Чат-сервисы</h3>
+                    <p>Создание ботов любой сложности: от диалоговых интерфейсов и приема платежей до глубоких интеграций с CRM.</p>
+                    <div class="tags">
+                        <span class="tag">AIOGRAM 3</span>
+                        <span class="tag">SQLALCHEMY</span>
+                        <span class="tag">PAYMENTS</span>
+                        <span class="tag">WEBHOOKS</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>UI/UX Дизайн & Интерфейсы</h3>
+                    <p>Проектирование удобных веб-интерфейсов и адаптивных макетов с акцентом на пользовательский опыт.</p>
+                    <div class="tags">
+                        <span class="tag">FIGMA</span>
+                        <span class="tag">ПРОТОТИПЫ</span>
+                        <span class="tag">АДАПТИВ</span>
+                        <span class="tag">UX-ИССЛЕДОВАНИЯ</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">✍️</div>
+                    <h3>Копирайтинг & Контент</h3>
+                    <p>Подготовка информативных и продающих текстов для сайтов, посадочных страниц и документации.</p>
+                    <div class="tags">
+                        <span class="tag">SEO-ТЕКСТЫ</span>
+                        <span class="tag">ЛЕНДИНГИ</span>
+                        <span class="tag">ОПИСАНИЯ</span>
+                        <span class="tag">СТАТЬИ</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon vscode-icon" aria-label="Интеграции">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16.5 9.4 7.5 4.21a2.1 2.1 0 0 0-2.8 1.12l-1.3 3.12a2.1 2.1 0 0 0 .5 2.4l11.6 9.46a2.1 2.1 0 0 0 2.8-.2l2.3-2.6a2.1 2.1 0 0 0-.2-2.9L16.5 9.4z"/>
+                            <path d="M16.5 14.6 7.5 19.79a2.1 2.1 0 0 1-2.8-1.12l-1.3-3.12a2.1 2.1 0 0 1 .5-2.4l11.6-9.46a2.1 2.1 0 0 1 2.8.2l2.3 2.6a2.1 2.1 0 0 1-.2 2.9L16.5 14.6z"/>
+                        </svg>
+                    </div>
+                    <h3>Парсинг & Автоматизация</h3>
+                    <p>Автоматический сбор данных, парсинг сайтов, настройка регулярных задач и синхронизация сервисов.</p>
+                    <div class="tags">
+                        <span class="tag">PLAYWRIGHT</span>
+                        <span class="tag">HTTPX</span>
+                        <span class="tag">BS4</span>
+                        <span class="tag">DOCKER</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Как я работаю -->
+        <section id="process" class="section">
+            <h2 class="section-title">Как строится работа</h2>
+            <div class="process-list">
+                
+                <div class="process-item">
+                    <span class="process-num">01</span>
+                    <div class="process-content">
+                        <h3>Анализ & Планирование</h3>
+                        <p>Изучаю требования, прорабатываю архитектуру, базы данных и структуру будущего решения.</p>
+                    </div>
+                </div>
+
+                <div class="process-item">
+                    <span class="process-num">02</span>
+                    <div class="process-content">
+                        <h3>Разработка & Промежуточные демонстрации</h3>
+                        <p>Пишу аккуратный код с строгой типизацией. На каждом этапе показываю рабочие промежуточные версии.</p>
+                    </div>
+                </div>
+
+                <div class="process-item">
+                    <span class="process-num">03</span>
+                    <div class="process-content">
+                        <h3>Тестирование & Оптимизация</h3>
+                        <p>Настраиваю обработку ошибок, проверяю производительность запросов и безопасность эндпоинтов.</p>
+                    </div>
+                </div>
+
+                <div class="process-item">
+                    <span class="process-num">04</span>
+                    <div class="process-content">
+                        <h3>Запуск & Сопровождение</h3>
+                        <p>Разворачиваю проект на сервере через Docker, настраиваю Nginx, SSL и передаю готовую систему.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Стек -->
+        <section id="skills" class="section">
+            <h2 class="section-title">Технологический стек</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Backend</h3>
+                    <ul>
+                        <li>Python 3.11+</li>
+                        <li>FastAPI / asyncpg</li>
+                        <li>Django / DRF</li>
+                        <li>SQLAlchemy / Tortoise ORM</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Базы данных & Caching</h3>
+                    <ul>
+                        <li>PostgreSQL / MySQL</li>
+                        <li>Redis / Memcached</li>
+                        <li>SQLite</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>DevOps & Инструменты</h3>
+                    <ul>
+                        <li>Docker / Docker Compose</li>
+                        <li>Git / GitHub / GitLab</li>
+                        <li>Nginx / Gunicorn</li>
+                        <li>Linux (Arch / CachyOS)</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Frontend & Асинхронность</h3>
+                    <ul>
+                        <li>Asyncio / Celery</li>
+                        <li>REST API / gRPC / WebSockets</li>
+                        <li>HTML5 / CSS3 / JavaScript</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Контакты -->
+        <section id="contact" class="section">
+            <h2 class="section-title">Связаться со мной</h2>
+            <p class="contact-subtitle">Открыт к обсуждению новых проектов и задач.</p>
+            <div class="contact-links">
+                <a href="https://t.me/Zch_Cibitka" target="_blank" rel="noopener noreferrer" class="btn primary-btn">Telegram</a>
+                <a href="https://github.com/Cibitka" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">GitHub</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Cibitka. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>
