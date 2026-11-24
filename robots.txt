@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cibitka.github.io/my-site/sitemap.xml
