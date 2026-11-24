@@ -1,248 +1,816 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#050811">
-    <title>Cibitka | Python Web Developer</title>
-    <meta name="description" content="Cibitka — Python-разработчик. Веб-приложения, асинхронные API, Telegram-боты, парсеры и автоматизация.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cibitka — Python Backend, Telegram-боты и автоматизация</title>
+  <meta name="description" content="Александр (Cibitka): разработка Python API (FastAPI, Django), Telegram-ботов (aiogram 3), парсеров и нативных Linux-инструментов на Rust (Cibitube).">
+  <meta name="theme-color" content="#050811">
 
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Cibitka | Python Web Developer">
-    <meta property="og:description" content="Разработка веб-приложений, API, ботов и интеграций.">
-    <meta property="og:locale" content="ru_RU">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cibitka — Python Backend, Telegram-боты и автоматизация">
+  <meta property="og:description" content="Портфолио, прайс-лист, open-source проект Cibitube и рабочие демо.">
+  <meta property="og:url" content="https://cibitka.github.io/my-site/">
 
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23050811'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='700' font-size='26' fill='%2320b2aa'%3E%26lt;C/%26gt;%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts: Manrope, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" defer></script>
+  <script src="./script.js" defer></script>
 </head>
 <body>
+  <canvas id="topo-canvas" aria-hidden="true"></canvas>
+  <a href="#main-content" class="skip-link" data-i18n="skip">Перейти к содержимому</a>
 
-    <!-- Топографический фон -->
-    <canvas id="topo-canvas" aria-hidden="true"></canvas>
+  <!-- 01 HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#hero" class="brand" aria-label="Cibitka Home">
+        <span class="brand-accent">&lt;</span>Cibitka<span class="brand-accent"> /&gt;</span>
+      </a>
 
-    <!-- Навигация -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="#about" class="logo">&lt;Cibitka  <span class="matrix-slash">/</span>&gt;</a>
-            <nav class="nav-links" aria-label="Основная навигация">
-                <a href="#about">О себе</a>
-                <a href="#services">Услуги</a>
-                <a href="#process">Процесс</a>
-                <a href="#skills">Стек</a>
-                <a href="#contact">Контакты</a>
-            </nav>
+      <nav class="nav-desktop" aria-label="Основная навигация">
+        <a href="#services" class="nav-link" data-i18n="nav_services">Услуги и цены</a>
+        <a href="#portfolio" class="nav-link" data-i18n="nav_portfolio">Портфолио</a>
+        <a href="#stack" class="nav-link" data-i18n="nav_stack">Стек</a>
+        <a href="#process" class="nav-link" data-i18n="nav_process">Процесс</a>
+        <a href="#about" class="nav-link" data-i18n="nav_about">О себе</a>
+        <a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
+        <a href="#contact" class="nav-link" data-i18n="nav_contact">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" id="lang-toggle" class="lang-toggle" aria-label="Switch language">
+          <i data-lucide="globe" width="14" height="14" aria-hidden="true"></i>
+          <span id="lang-label">EN</span>
+        </button>
+        <button type="button" id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+          <i data-lucide="menu" width="20" height="20" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Мобильная навигация">
+      <a href="#services" data-i18n="nav_services">Услуги и цены</a>
+      <a href="#portfolio" data-i18n="nav_portfolio">Портфолио</a>
+      <a href="#stack" data-i18n="nav_stack">Стек</a>
+      <a href="#process" data-i18n="nav_process">Процесс</a>
+      <a href="#about" data-i18n="nav_about">О себе</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <a href="#contact" data-i18n="nav_contact">Контакты</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- 02 HERO + INTERACTIVE TERMINAL -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-kicker" data-i18n="hero_status">// python backend · telegram bots · rust</div>
+          <h1 class="hero-title">
+            <span data-i18n="hero_title_1">Александр (Cibitka) — </span><span class="accent-text" data-i18n="hero_title_accent">Python-разработка</span><span data-i18n="hero_title_2">, боты и автоматизация</span>
+          </h1>
+          <p class="hero-subtitle" data-i18n="hero_sub">
+            Делаю асинхронные API на FastAPI и Django, Telegram-ботов на aiogram 3, парсеры данных и нативные Linux-приложения на Rust. Фиксирую сроки и стоимость до старта, сдаю чистый код с инструкцией по запуску.
+          </p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">
+              <i data-lucide="send" width="16" height="16" aria-hidden="true"></i>
+              <span data-i18n="hero_cta_primary">Обсудить задачу</span>
+            </a>
+            <a href="#portfolio" class="btn btn-secondary">
+              <i data-lucide="folder-git-2" width="16" height="16" aria-hidden="true"></i>
+              <span data-i18n="hero_cta_secondary">Проекты</span>
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <span class="metric-value" data-i18n="metric_exp_val">3+ года</span>
+              <span class="metric-label" data-i18n="metric_exp_lbl">опыта в Python</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value" data-i18n="metric_os_val">Cibitube</span>
+              <span class="metric-label" data-i18n="metric_os_lbl">Open Source (MIT)</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value" data-i18n="metric_ram_val">~30 MB</span>
+              <span class="metric-label" data-i18n="metric_ram_lbl">RAM в Cibitube</span>
+            </div>
+          </div>
         </div>
-    </header>
 
-    <main>
-        <!-- Hero / О себе -->
-        <section id="about" class="hero">
-            <div class="hero-content">
-                <p class="greeting">Привет, я</p>
+        <!-- Interactive Terminal -->
+        <div class="terminal-card" role="region" aria-label="Интерактивный терминал портфолио">
+          <div class="terminal-topbar">
+            <span class="terminal-title" data-i18n="term_title">cibitka@arch:~/portfolio</span>
+            <span class="terminal-title">zsh</span>
+          </div>
 
-                <h1 class="sr-only">Александр — Python Web Developer</h1>
-                <div class="interactive-text-container">
-                    <canvas id="text-canvas" aria-hidden="true"></canvas>
-                </div>
+          <div id="terminal-body" class="terminal-body" aria-live="polite"></div>
 
-                <!-- Кнопки действия -->
-                <div class="hero-btns">
-                    <a href="#services" class="btn primary-btn">Услуги</a>
-                    <a href="#contact" class="btn secondary-btn">Связаться</a>
-                </div>
+          <div class="terminal-chips" aria-label="Быстрые команды">
+            <button type="button" class="term-chip" data-cmd="/help">/help</button>
+            <button type="button" class="term-chip" data-cmd="/whoami">/whoami</button>
+            <button type="button" class="term-chip" data-cmd="/projects">/projects</button>
+            <button type="button" class="term-chip" data-cmd="/stack">/stack</button>
+            <button type="button" class="term-chip" data-cmd="/services">/services</button>
+            <button type="button" class="term-chip" data-cmd="/links">/links</button>
+            <button type="button" class="term-chip" data-cmd="/clear">/clear</button>
+          </div>
 
-                <!-- Метрики -->
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-num">3+</span>
-                        <span class="stat-desc">года опыта</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-num">∞</span>
-                        <span class="stat-desc">идей и решений</span>
-                    </div>
-                </div>
+          <form id="terminal-form" class="terminal-input-row" autocomplete="off">
+            <span class="terminal-prompt" aria-hidden="true">$</span>
+            <input
+              id="terminal-input"
+              type="text"
+              class="terminal-input"
+              aria-label="Команда терминала"
+              data-i18n-placeholder="term_placeholder"
+              placeholder="Введите /help, /projects, /stack..."
+            >
+            <button type="submit" class="terminal-run-btn" data-i18n="term_run">Run</button>
+          </form>
+        </div>
+      </div>
+    </section>
 
-                <!-- Перенесенный блок с текстом без лишней плашки справа -->
-                <div class="about-card">
-                    <p>
-                        Я — Python-разработчик, специализирующийся на создании быстрых веб-сервисов, надежных асинхронных API и автоматизации любых процессов. Проектирую архитектуру с акцентом на высокую скорость работы, чистый код и отказоустойчивость.
-                    </p>
-                    <p>
-                        Мой приоритет — понятный результат: от удобного взаимодействия до готового решения, которое легко поддерживать и масштабировать под любые задачи.
-                    </p>
-                </div>
+    <!-- 03 SERVICES & PRICING -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="services_kicker">03 / Услуги и цены</span>
+          <h2 class="section-title" data-i18n="services_title">Основные направления разработки</h2>
+          <p class="section-desc" data-i18n="services_desc">Три профильных направления с ориентировочной стоимостью. Точная оценка зависит от объёма и фиксируется после обсуждения.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="card service-card">
+            <div class="service-head">
+              <div class="service-icon"><i data-lucide="server" width="20" height="20" aria-hidden="true"></i></div>
+              <span class="badge-mono">01</span>
             </div>
-        </section>
-
-        <!-- Услуги -->
-        <section id="services" class="section">
-            <h2 class="section-title">Чем могу помочь</h2>
-            <div class="services-grid">
-                
-                <div class="service-card">
-                    <div class="service-icon">⚡</div>
-                    <h3>Backend & API</h3>
-                    <p>Проектирование и разработка чистых, быстрых асинхронных RESTful и WebSocket API для современных проектов.</p>
-                    <div class="tags">
-                        <span class="tag">FASTAPI</span>
-                        <span class="tag">DJANGO / DRF</span>
-                        <span class="tag">POSTGRESQL</span>
-                        <span class="tag">REDIS</span>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🤖</div>
-                    <h3>Telegram Боты & Чат-сервисы</h3>
-                    <p>Создание ботов любой сложности: от диалоговых интерфейсов и приема платежей до глубоких интеграций с CRM.</p>
-                    <div class="tags">
-                        <span class="tag">AIOGRAM 3</span>
-                        <span class="tag">SQLALCHEMY</span>
-                        <span class="tag">PAYMENTS</span>
-                        <span class="tag">WEBHOOKS</span>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <h3>UI/UX Дизайн & Интерфейсы</h3>
-                    <p>Проектирование удобных веб-интерфейсов и адаптивных макетов с акцентом на пользовательский опыт.</p>
-                    <div class="tags">
-                        <span class="tag">FIGMA</span>
-                        <span class="tag">ПРОТОТИПЫ</span>
-                        <span class="tag">АДАПТИВ</span>
-                        <span class="tag">UX-ИССЛЕДОВАНИЯ</span>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">✍️</div>
-                    <h3>Копирайтинг & Контент</h3>
-                    <p>Подготовка информативных и продающих текстов для сайтов, посадочных страниц и документации.</p>
-                    <div class="tags">
-                        <span class="tag">SEO-ТЕКСТЫ</span>
-                        <span class="tag">ЛЕНДИНГИ</span>
-                        <span class="tag">ОПИСАНИЯ</span>
-                        <span class="tag">СТАТЬИ</span>
-                    </div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon vscode-icon" aria-label="Интеграции">
-                        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16.5 9.4 7.5 4.21a2.1 2.1 0 0 0-2.8 1.12l-1.3 3.12a2.1 2.1 0 0 0 .5 2.4l11.6 9.46a2.1 2.1 0 0 0 2.8-.2l2.3-2.6a2.1 2.1 0 0 0-.2-2.9L16.5 9.4z"/>
-                            <path d="M16.5 14.6 7.5 19.79a2.1 2.1 0 0 1-2.8-1.12l-1.3-3.12a2.1 2.1 0 0 1 .5-2.4l11.6-9.46a2.1 2.1 0 0 1 2.8.2l2.3 2.6a2.1 2.1 0 0 1-.2 2.9L16.5 14.6z"/>
-                        </svg>
-                    </div>
-                    <h3>Парсинг & Автоматизация</h3>
-                    <p>Автоматический сбор данных, парсинг сайтов, настройка регулярных задач и синхронизация сервисов.</p>
-                    <div class="tags">
-                        <span class="tag">PLAYWRIGHT</span>
-                        <span class="tag">HTTPX</span>
-                        <span class="tag">BS4</span>
-                        <span class="tag">DOCKER</span>
-                    </div>
-                </div>
-
+            <h3 class="card-title" data-i18n="srv1_title">Backend &amp; API</h3>
+            <p class="card-text" data-i18n="srv1_desc">Асинхронные REST и WebSocket API, проектирование БД и интеграции с внешними сервисами.</p>
+            <div class="price-box">
+              <span class="price-amount" data-i18n="srv1_price">от 15 000 ₽</span>
+              <span class="price-eta" data-i18n="srv1_eta">от 5 дней</span>
             </div>
-        </section>
-
-        <!-- Как я работаю -->
-        <section id="process" class="section">
-            <h2 class="section-title">Как строится работа</h2>
-            <div class="process-list">
-                
-                <div class="process-item">
-                    <span class="process-num">01</span>
-                    <div class="process-content">
-                        <h3>Анализ & Планирование</h3>
-                        <p>Изучаю требования, прорабатываю архитектуру, базы данных и структуру будущего решения.</p>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <span class="process-num">02</span>
-                    <div class="process-content">
-                        <h3>Разработка & Промежуточные демонстрации</h3>
-                        <p>Пишу аккуратный код с строгой типизацией. На каждом этапе показываю рабочие промежуточные версии.</p>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <span class="process-num">03</span>
-                    <div class="process-content">
-                        <h3>Тестирование & Оптимизация</h3>
-                        <p>Настраиваю обработку ошибок, проверяю производительность запросов и безопасность эндпоинтов.</p>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <span class="process-num">04</span>
-                    <div class="process-content">
-                        <h3>Запуск & Сопровождение</h3>
-                        <p>Разворачиваю проект на сервере через Docker, настраиваю Nginx, SSL и передаю готовую систему.</p>
-                    </div>
-                </div>
-
+            <ul class="check-list">
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv1_f1">FastAPI или Django / DRF с типизацией</span></li>
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv1_f2">PostgreSQL, Redis, миграции и OpenAPI</span></li>
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv1_f3">Сборка в Docker и деплой на сервер</span></li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">FastAPI</span>
+              <span class="tag">Django</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Docker</span>
             </div>
-        </section>
+            <a href="#contact" class="btn btn-secondary service-select-btn" data-service="Backend & API" data-i18n="srv_btn">Выбрать услугу</a>
+          </article>
 
-        <!-- Стек -->
-        <section id="skills" class="section">
-            <h2 class="section-title">Технологический стек</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>Backend</h3>
-                    <ul>
-                        <li>Python 3.11+</li>
-                        <li>FastAPI / asyncpg</li>
-                        <li>Django / DRF</li>
-                        <li>SQLAlchemy / Tortoise ORM</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Базы данных & Caching</h3>
-                    <ul>
-                        <li>PostgreSQL / MySQL</li>
-                        <li>Redis / Memcached</li>
-                        <li>SQLite</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>DevOps & Инструменты</h3>
-                    <ul>
-                        <li>Docker / Docker Compose</li>
-                        <li>Git / GitHub / GitLab</li>
-                        <li>Nginx / Gunicorn</li>
-                        <li>Linux (Arch / CachyOS)</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Frontend & Асинхронность</h3>
-                    <ul>
-                        <li>Asyncio / Celery</li>
-                        <li>REST API / gRPC / WebSockets</li>
-                        <li>HTML5 / CSS3 / JavaScript</li>
-                    </ul>
-                </div>
+          <article class="card service-card">
+            <div class="service-head">
+              <div class="service-icon"><i data-lucide="bot" width="20" height="20" aria-hidden="true"></i></div>
+              <span class="badge-mono">02</span>
             </div>
-        </section>
-
-        <!-- Контакты -->
-        <section id="contact" class="section">
-            <h2 class="section-title">Связаться со мной</h2>
-            <p class="contact-subtitle">Открыт к обсуждению новых проектов и задач.</p>
-            <div class="contact-links">
-                <a href="https://t.me/Zch_Cibitka" target="_blank" rel="noopener noreferrer" class="btn primary-btn">Telegram</a>
-                <a href="https://github.com/Cibitka" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">GitHub</a>
+            <h3 class="card-title" data-i18n="srv2_title">Telegram-боты</h3>
+            <p class="card-text" data-i18n="srv2_desc">Боты для каталогов, заявок, записи, уведомлений, приёма платежей и связи с CRM.</p>
+            <div class="price-box">
+              <span class="price-amount" data-i18n="srv2_price">от 8 000 ₽</span>
+              <span class="price-eta" data-i18n="srv2_eta">от 3 дней</span>
             </div>
-        </section>
-    </main>
+            <ul class="check-list">
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv2_f1">Асинхронный aiogram 3 и SQLAlchemy</span></li>
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv2_f2">Вебхуки, платежи и админ-команды</span></li>
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv2_f3">Логирование ошибок и автоперезапуск</span></li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">aiogram 3</span>
+              <span class="tag">SQLAlchemy</span>
+              <span class="tag">Webhooks</span>
+            </div>
+            <a href="#contact" class="btn btn-secondary service-select-btn" data-service="Telegram-боты" data-i18n="srv_btn">Выбрать услугу</a>
+          </article>
 
-    <footer>
-        <p>© 2026 Cibitka. Все права защищены.</p>
-    </footer>
+          <article class="card service-card">
+            <div class="service-head">
+              <div class="service-icon"><i data-lucide="workflow" width="20" height="20" aria-hidden="true"></i></div>
+              <span class="badge-mono">03</span>
+            </div>
+            <h3 class="card-title" data-i18n="srv3_title">Парсинг и автоматизация</h3>
+            <p class="card-text" data-i18n="srv3_desc">Сбор данных с сайтов, мониторинг цен, регулярные отчёты и синхронизация между сервисами.</p>
+            <div class="price-box">
+              <span class="price-amount" data-i18n="srv3_price">от 5 000 ₽</span>
+              <span class="price-eta" data-i18n="srv3_eta">от 2 дней</span>
+            </div>
+            <ul class="check-list">
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv3_f1">Playwright, httpx и BeautifulSoup4</span></li>
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv3_f2">Выгрузка в CSV, Excel, Google Sheets или Telegram</span></li>
+              <li><i data-lucide="check" width="15" height="15" aria-hidden="true"></i><span data-i18n="srv3_f3">Запуск по расписанию (cron / Docker)</span></li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">Playwright</span>
+              <span class="tag">httpx</span>
+              <span class="tag">BS4</span>
+            </div>
+            <a href="#contact" class="btn btn-secondary service-select-btn" data-service="Парсинг и автоматизация" data-i18n="srv_btn">Выбрать услугу</a>
+          </article>
+        </div>
 
+        <p class="pricing-note">
+          <i data-lucide="info" width="15" height="15" aria-hidden="true"></i>
+          <span data-i18n="pricing_note">Цены ориентировочные — итоговая стоимость и сроки согласовываются до начала разработки.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 04 PORTFOLIO -->
+    <section id="portfolio" class="section">
+      <div class="container">
+        <div class="portfolio-toolbar">
+          <div class="section-header" style="margin-bottom: 0;">
+            <span class="section-kicker" data-i18n="port_kicker">04 / Портфолио</span>
+            <h2 class="section-title" data-i18n="port_title">Проекты и рабочие демо</h2>
+            <p class="section-desc" data-i18n="port_desc">Открытые репозитории на GitHub и интерактивные прототипы, которые можно проверить на месте.</p>
+          </div>
+
+          <div class="filter-group" role="group" aria-label="Фильтр проектов">
+            <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true" data-i18n="filter_all">Все</button>
+            <button type="button" class="filter-btn" data-filter="real" aria-pressed="false" data-i18n="filter_real">Open Source</button>
+            <button type="button" class="filter-btn" data-filter="demo" aria-pressed="false" data-i18n="filter_demo">Демо</button>
+          </div>
+        </div>
+
+        <div class="portfolio-grid">
+          <!-- Project 1: Cibitube -->
+          <article class="card project-card" data-category="real">
+            <div class="project-preview">
+              <div class="app-window" aria-label="Превью интерфейса Cibitube">
+                <div class="app-window-bar">
+                  <span>Cibitube v0.2.10 · Linux</span>
+                  <span>egui + MPV IPC</span>
+                </div>
+                <div class="app-window-body">
+                  <div class="cibi-track">
+                    <div class="cibi-cover"><i data-lucide="music" width="16" height="16" aria-hidden="true"></i></div>
+                    <div class="cibi-meta">
+                      <div class="cibi-song">Midnight City (Synced .lrc)</div>
+                      <div class="cibi-artist">YouTube Music · Google Drive Sync</div>
+                    </div>
+                    <span class="cibi-ram">~30 MB RAM</span>
+                  </div>
+                  <div class="cibi-progress"><div class="cibi-progress-fill"></div></div>
+                  <div class="cibi-stats-row">
+                    <span>MIT · 37 commits</span>
+                    <span>AUR · RU/EN</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta-row">
+                <span class="project-type" data-i18n="p1_type">Open Source · Rust / Linux</span>
+                <span class="badge-mono">v0.2.10</span>
+              </div>
+              <h3 class="card-title" data-i18n="p1_title">Cibitube — клиент YouTube Music для Linux</h3>
+              <p class="card-text" data-i18n="p1_desc">Нативный десктопный клиент на Rust (egui/eframe + MPV IPC + yt-dlp). Потребляет ~30 MB RAM против 500+ MB у Electron, поддерживает синхронизацию ПК ↔ Android через Google Drive, загрузку обложек и .lrc текстов (LRCLIB), интерфейс RU/EN и упаковку для AUR.</p>
+              <div class="tags-row">
+                <span class="tag">Rust 2021</span>
+                <span class="tag">egui / eframe</span>
+                <span class="tag">MPV IPC</span>
+                <span class="tag">yt-dlp</span>
+                <span class="tag">AUR</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/Cibitka/Cibitube" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                  <i data-lucide="github" width="15" height="15" aria-hidden="true"></i>
+                  <span data-i18n="p1_btn_gh">Открыть на GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2: Interactive Telegram Bot Demo -->
+          <article class="card project-card" data-category="demo">
+            <div class="project-preview">
+              <div class="demo-preview-box">
+                <div class="bot-bubble">@CibitkaDemoBot · aiogram 3<br>Симулятор меню: каталог услуг, статус заказа #402 и отправка заявки.</div>
+                <div class="bot-inline-kb">
+                  <span>Каталог</span>
+                  <span>Статус #402</span>
+                  <span>Заявка</span>
+                  <span>/start</span>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta-row">
+                <span class="project-type" data-i18n="p2_type">Демо · aiogram 3</span>
+                <span class="badge-mono">Demo</span>
+              </div>
+              <h3 class="card-title" data-i18n="p2_title">Демо Telegram-бота для заявок</h3>
+              <p class="card-text" data-i18n="p2_desc">Симулятор клиентского Telegram-бота: выбор услуги из каталога, проверка статуса заказа и оформление заявки через инлайн-кнопки.</p>
+              <div class="tags-row">
+                <span class="tag">aiogram 3</span>
+                <span class="tag">Inline Keyboard</span>
+                <span class="tag">Webhooks</span>
+              </div>
+              <div class="project-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-open-modal="modal-bot-demo">
+                  <i data-lucide="play" width="14" height="14" aria-hidden="true"></i>
+                  <span data-i18n="p2_btn_demo">Открыть демо бота</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3: Commercial Landing Demo -->
+          <article class="card project-card" data-category="demo">
+            <div class="project-preview">
+              <div class="landing-mini-hero">
+                <div class="landing-mini-nav">
+                  <span>NORDIC ROAST</span>
+                  <span>Демо-макет</span>
+                </div>
+                <div class="landing-mini-title">Подписка на зерновой кофе с расчётом стоимости</div>
+                <div class="landing-mini-pills">
+                  <span>Калькулятор</span>
+                  <span>Адаптив</span>
+                  <span>HTML/CSS/JS</span>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta-row">
+                <span class="project-type" data-i18n="p3_type">Демо · HTML / CSS / JS</span>
+                <span class="badge-mono">Demo</span>
+              </div>
+              <h3 class="card-title" data-i18n="p3_title">Демо коммерческого лендинга</h3>
+              <p class="card-text" data-i18n="p3_desc">Пример лёгкого лендинга для малого бизнеса с интерактивным калькулятором подписки и расчётом цены без фреймворков.</p>
+              <div class="tags-row">
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS Grid</span>
+                <span class="tag">Vanilla JS</span>
+              </div>
+              <div class="project-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-open-modal="modal-landing-demo">
+                  <i data-lucide="external-link" width="14" height="14" aria-hidden="true"></i>
+                  <span data-i18n="p3_btn_demo">Открыть демо лендинга</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4: Cibitka my-site -->
+          <article class="card project-card" data-category="real">
+            <div class="project-preview">
+              <div class="app-window">
+                <div class="app-window-bar">
+                  <span>github.com/Cibitka/my-site</span>
+                  <span>HTML · CSS · JS</span>
+                </div>
+                <div class="app-window-body">
+                  <div class="cibi-song">&lt;Cibitka /&gt; Portfolio v2.0</div>
+                  <div class="cibi-artist">Топографический Canvas · Терминал · RU/EN · ARIA · SEO</div>
+                  <div class="cibi-stats-row">
+                    <span>Zero frameworks</span>
+                    <span>GitHub Pages</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta-row">
+                <span class="project-type" data-i18n="p4_type">Open Source · Frontend</span>
+                <span class="badge-mono">v2.0</span>
+              </div>
+              <h3 class="card-title" data-i18n="p4_title">Cibitka v2.0 (my-site)</h3>
+              <p class="card-text" data-i18n="p4_desc">Этот сайт-портфолио: чистый HTML5, CSS3 и Vanilla JavaScript, топографический фон на 3D-шуме Перлина, интерактивный терминал и поддержка RU/EN.</p>
+              <div class="tags-row">
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">Canvas API</span>
+                <span class="tag">Lucide Icons</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/Cibitka/my-site" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  <i data-lucide="code-2" width="15" height="15" aria-hidden="true"></i>
+                  <span data-i18n="p4_btn_gh">Исходный код</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 TECH STACK -->
+    <section id="stack" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="stack_kicker">05 / Технологический стек</span>
+          <h2 class="section-title" data-i18n="stack_title">Технологии в работе</h2>
+          <p class="section-desc" data-i18n="stack_desc">Инструменты, которые реально применяются в моих проектах и репозиториях.</p>
+        </div>
+
+        <div class="stack-grid">
+          <div class="card">
+            <div class="stack-card-head">
+              <div class="service-icon"><i data-lucide="cpu" width="19" height="19" aria-hidden="true"></i></div>
+              <h3 class="card-title" data-i18n="st1_title">Python &amp; Backend</h3>
+            </div>
+            <div class="stack-pills">
+              <span class="stack-pill">Python 3.11+</span>
+              <span class="stack-pill">FastAPI</span>
+              <span class="stack-pill">Django / DRF</span>
+              <span class="stack-pill">Asyncio</span>
+              <span class="stack-pill">SQLAlchemy</span>
+              <span class="stack-pill">REST / WebSockets</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="stack-card-head">
+              <div class="service-icon"><i data-lucide="bot" width="19" height="19" aria-hidden="true"></i></div>
+              <h3 class="card-title" data-i18n="st2_title">Боты и автоматизация</h3>
+            </div>
+            <div class="stack-pills">
+              <span class="stack-pill">aiogram 3</span>
+              <span class="stack-pill">Playwright</span>
+              <span class="stack-pill">httpx</span>
+              <span class="stack-pill">BeautifulSoup4</span>
+              <span class="stack-pill">Webhooks</span>
+              <span class="stack-pill">Payments API</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="stack-card-head">
+              <div class="service-icon"><i data-lucide="database" width="19" height="19" aria-hidden="true"></i></div>
+              <h3 class="card-title" data-i18n="st3_title">Базы данных и DevOps</h3>
+            </div>
+            <div class="stack-pills">
+              <span class="stack-pill">PostgreSQL</span>
+              <span class="stack-pill">Redis</span>
+              <span class="stack-pill">SQLite</span>
+              <span class="stack-pill">Docker / Compose</span>
+              <span class="stack-pill">Nginx</span>
+              <span class="stack-pill">Linux (Arch / CachyOS)</span>
+              <span class="stack-pill">Git / GitHub</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="stack-card-head">
+              <div class="service-icon"><i data-lucide="terminal" width="19" height="19" aria-hidden="true"></i></div>
+              <h3 class="card-title" data-i18n="st4_title">Системное и Frontend</h3>
+            </div>
+            <div class="stack-pills">
+              <span class="stack-pill">Rust (2021)</span>
+              <span class="stack-pill">egui / eframe</span>
+              <span class="stack-pill">MPV IPC / yt-dlp</span>
+              <span class="stack-pill">HTML5 / CSS3</span>
+              <span class="stack-pill">Vanilla JS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 PROCESS -->
+    <section id="process" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="proc_kicker">06 / Этапы работы</span>
+          <h2 class="section-title" data-i18n="proc_title">Как строится работа</h2>
+          <p class="section-desc" data-i18n="proc_desc">Четыре последовательных шага от обсуждения до запуска.</p>
+        </div>
+
+        <div class="process-grid">
+          <div class="card process-step">
+            <span class="step-num">01</span>
+            <h3 class="card-title" data-i18n="pr1_t">Анализ и оценка</h3>
+            <p class="card-text" data-i18n="pr1_d">Разбираем требования, прорабатываем структуру БД и фиксируем сроки со стоимостью.</p>
+          </div>
+          <div class="card process-step">
+            <span class="step-num">02</span>
+            <h3 class="card-title" data-i18n="pr2_t">Разработка и демо</h3>
+            <p class="card-text" data-i18n="pr2_d">Пишу типизированный код и показываю рабочие промежуточные версии по мере готовности.</p>
+          </div>
+          <div class="card process-step">
+            <span class="step-num">03</span>
+            <h3 class="card-title" data-i18n="pr3_t">Тестирование</h3>
+            <p class="card-text" data-i18n="pr3_d">Проверяю обработку ошибок, производительность запросов и безопасность эндпоинтов.</p>
+          </div>
+          <div class="card process-step">
+            <span class="step-num">04</span>
+            <h3 class="card-title" data-i18n="pr4_t">Запуск и передача</h3>
+            <p class="card-text" data-i18n="pr4_d">Деплой через Docker / Nginx или GitHub Pages, передача репозитория и инструкции.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="about_kicker">07 / О себе</span>
+          <h2 class="section-title" data-i18n="about_title">О разработчике</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="card" style="display:flex; flex-direction:column; gap:14px; justify-content:center;">
+            <p class="card-text" style="font-size:1rem; color:var(--text);" data-i18n="about_p1">
+              Меня зовут Александр (Cibitka). Специализируюсь на Python-бэкенде, Telegram-ботах и автоматизации, а также пишу нативные Linux-утилиты на Rust.
+            </p>
+            <p class="card-text" style="font-size:0.95rem;" data-i18n="about_p2">
+              Стараюсь делать архитектуру простой для поддержки и быстрой в работе: без лишних зависимостей и перегруженных фреймворков там, где они не нужны.
+            </p>
+          </div>
+
+          <div class="card about-highlights">
+            <div class="highlight-row">
+              <i data-lucide="zap" width="18" height="18" aria-hidden="true"></i>
+              <div>
+                <strong data-i18n="ab_h1_t">Производительность</strong>
+                <span data-i18n="ab_h1_d">Cibitube потребляет ~30 MB RAM вместо 500+ MB у Electron-клиентов.</span>
+              </div>
+            </div>
+            <div class="highlight-row">
+              <i data-lucide="shield-check" width="18" height="18" aria-hidden="true"></i>
+              <div>
+                <strong data-i18n="ab_h2_t">Безопасность</strong>
+                <span data-i18n="ab_h2_d">Никаких ключей и токенов в коде, аккуратная работа с конфигурациями и правами доступа.</span>
+              </div>
+            </div>
+            <div class="highlight-row">
+              <i data-lucide="terminal-square" width="18" height="18" aria-hidden="true"></i>
+              <div>
+                <strong data-i18n="ab_h3_t">Окружение</strong>
+                <span data-i18n="ab_h3_d">Ежедневно работаю в Linux (Arch / CachyOS), Git и Docker.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 FAQ -->
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="faq_kicker">08 / FAQ</span>
+          <h2 class="section-title" data-i18n="faq_title">Частые вопросы</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button type="button" class="faq-trigger" aria-expanded="true" aria-controls="faq-p1">
+              <span data-i18n="faq1_q">Как формируется стоимость и как проходит оплата?</span>
+              <i data-lucide="chevron-down" width="18" height="18" class="faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-p1" class="faq-panel" role="region" data-i18n="faq1_a">
+              После обсуждения задачи я фиксирую итоговую сумму и сроки. Небольшие задачи можно оплатить после показа рабочего демо, более крупные — поэтапно (например, 50% после согласования ТЗ и 50% при передаче).
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p2">
+              <span data-i18n="faq2_q">Что нужно для старта работы?</span>
+              <i data-lucide="chevron-down" width="18" height="18" class="faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-p2" class="faq-panel" role="region" data-i18n="faq2_a">
+              Достаточно описать задачу своими словами: какой нужен результат, кто будет пользоваться и есть ли примеры. Помогу составить список требований и выбрать стек.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p3">
+              <span data-i18n="faq3_q">Сколько времени занимает разработка?</span>
+              <i data-lucide="chevron-down" width="18" height="18" class="faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-p3" class="faq-panel" role="region" data-i18n="faq3_a">
+              Парсер или базовый Telegram-бот — обычно 2–5 дней. Backend API или бот со сложными интеграциями — от 1 до 3 недель в зависимости от объёма.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p4">
+              <span data-i18n="faq4_q">Как обстоят дела с правками?</span>
+              <i data-lucide="chevron-down" width="18" height="18" class="faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-p4" class="faq-panel" role="region" data-i18n="faq4_a">
+              Корректировки в рамках согласованного ТЗ вносятся бесплатно по ходу промежуточных показов. Дополнительные функции сверх плана оцениваются отдельно.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p5">
+              <span data-i18n="faq5_q">Помогаете с хостингом и деплоем?</span>
+              <i data-lucide="chevron-down" width="18" height="18" class="faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-p5" class="faq-panel" role="region" data-i18n="faq5_a">
+              Да: готовлю Docker-контейнеры, настраиваю запуск на VPS (Linux + Nginx + HTTPS) или публикацию статики на GitHub Pages и передаю исходный код.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-p6">
+              <span data-i18n="faq6_q">Есть ли поддержка после сдачи?</span>
+              <i data-lucide="chevron-down" width="18" height="18" class="faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-p6" class="faq-panel" role="region" data-i18n="faq6_a">
+              В течение 14 дней после запуска бесплатно исправляю возможные баги. Дальнейшие доработки — по договорённости.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" data-i18n="contact_kicker">09 / Контакты</span>
+          <h2 class="section-title" data-i18n="contact_title">Связаться со мной</h2>
+          <p class="section-desc" data-i18n="contact_desc">Заполните короткую форму — она соберёт готовое сообщение для Telegram.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card">
+            <form class="form-grid" onsubmit="return false;">
+              <div class="form-row">
+                <div class="field">
+                  <label for="brief-service" data-i18n="form_service">Направление</label>
+                  <select id="brief-service">
+                    <option value="Backend & API">Backend &amp; API</option>
+                    <option value="Telegram-боты">Telegram-боты</option>
+                    <option value="Парсинг и автоматизация">Парсинг и автоматизация</option>
+                    <option value="Другое">Другое</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="brief-budget" data-i18n="form_budget">Бюджет / срок</label>
+                  <input id="brief-budget" type="text" data-i18n-placeholder="form_budget_ph" placeholder="Например: до 15 000 ₽, за неделю">
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="brief-details" data-i18n="form_details">Описание задачи</label>
+                <textarea id="brief-details" data-i18n-placeholder="form_details_ph" placeholder="Что нужно сделать, какие функции важны..."></textarea>
+              </div>
+
+              <div id="brief-preview" class="brief-preview" aria-live="polite"></div>
+
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <a id="brief-tg-link" href="https://t.me/Zch_Cibitka" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                  <i data-lucide="send" width="15" height="15" aria-hidden="true"></i>
+                  <span data-i18n="form_tg">Отправить в Telegram</span>
+                </a>
+                <button type="button" id="brief-copy-btn" class="btn btn-secondary">
+                  <i data-lucide="copy" width="15" height="15" aria-hidden="true"></i>
+                  <span data-i18n="form_copy">Скопировать текст</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="contact-channels">
+            <a href="https://t.me/Zch_Cibitka" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <div class="channel-left">
+                <div class="service-icon"><i data-lucide="send" width="19" height="19" aria-hidden="true"></i></div>
+                <div>
+                  <div class="channel-title">Telegram</div>
+                  <div class="channel-sub" data-i18n="ch_tg_sub">@Zch_Cibitka</div>
+                </div>
+              </div>
+              <i data-lucide="arrow-up-right" width="17" height="17" aria-hidden="true"></i>
+            </a>
+
+            <a href="https://github.com/Cibitka" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <div class="channel-left">
+                <div class="service-icon"><i data-lucide="github" width="19" height="19" aria-hidden="true"></i></div>
+                <div>
+                  <div class="channel-title">GitHub</div>
+                  <div class="channel-sub" data-i18n="ch_gh_sub">github.com/Cibitka</div>
+                </div>
+              </div>
+              <i data-lucide="arrow-up-right" width="17" height="17" aria-hidden="true"></i>
+            </a>
+
+            <a href="https://boosty.to/zch_cibitka" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <div class="channel-left">
+                <div class="service-icon"><i data-lucide="heart" width="19" height="19" aria-hidden="true"></i></div>
+                <div>
+                  <div class="channel-title">Boosty</div>
+                  <div class="channel-sub" data-i18n="ch_boosty_sub">boosty.to/zch_cibitka</div>
+                </div>
+              </div>
+              <i data-lucide="arrow-up-right" width="17" height="17" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 10 FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#hero" class="brand">
+        <span class="brand-accent">&lt;</span>Cibitka<span class="brand-accent"> /&gt;</span>
+      </a>
+      <div class="footer-links">
+        <a href="#services" data-i18n="nav_services">Услуги и цены</a>
+        <a href="#portfolio" data-i18n="nav_portfolio">Портфолио</a>
+        <a href="#faq" data-i18n="nav_faq">FAQ</a>
+        <a href="https://github.com/Cibitka" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://t.me/Zch_Cibitka" target="_blank" rel="noopener noreferrer">Telegram</a>
+      </div>
+      <div class="footer-copy" data-i18n="footer_copy">© 2026 Cibitka.</div>
+    </div>
+  </footer>
+
+  <!-- MODAL: Telegram Bot Simulator -->
+  <div id="modal-bot-demo" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-bot-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-bot-title" class="card-title" data-i18n="modal_bot_title">Демо Telegram-бота (@CibitkaDemoBot)</h3>
+        <button type="button" class="modal-close" aria-label="Закрыть"><i data-lucide="x" width="18" height="18" aria-hidden="true"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="tg-chat-log" class="tg-chat-log" aria-live="polite"></div>
+        <div class="tg-controls">
+          <button type="button" class="btn btn-secondary btn-sm" data-bot-action="catalog">Каталог услуг</button>
+          <button type="button" class="btn btn-secondary btn-sm" data-bot-action="status">Статус #402</button>
+          <button type="button" class="btn btn-primary btn-sm" data-bot-action="order">Оставить заявку</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-bot-action="reset">/start</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Commercial Landing Demo -->
+  <div id="modal-landing-demo" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-landing-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-landing-title" class="card-title" data-i18n="modal_landing_title">Демо коммерческого лендинга — Nordic Roast</h3>
+        <button type="button" class="modal-close" aria-label="Закрыть"><i data-lucide="x" width="18" height="18" aria-hidden="true"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="landing-demo-shell">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-mono); color:var(--accent); font-weight:700;">NORDIC ROAST</span>
+            <span class="badge-mono">Demo</span>
+          </div>
+          <div>
+            <h4 style="margin:0 0 6px; font-family:var(--font-display); font-size:1.25rem;">Подписка на свежеобжаренный кофе</h4>
+            <p class="card-text">Выберите сорт и вес — стоимость пересчитается на лету.</p>
+          </div>
+          <div class="landing-demo-calc">
+            <div class="field">
+              <label for="landing-plan">Сорт</label>
+              <select id="landing-plan">
+                <option value="starter">Classic Espresso</option>
+                <option value="standard" selected>Specialty Filter</option>
+                <option value="pro">Micro-Lot Reserve</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="landing-weight">Вес в месяц</label>
+              <select id="landing-weight">
+                <option value="250">250 г</option>
+                <option value="500" selected>500 г</option>
+                <option value="1000">1 000 г</option>
+              </select>
+            </div>
+          </div>
+          <div class="landing-total-bar">
+            <div>
+              <div style="font-size:0.78rem; color:var(--muted);">Итого</div>
+              <div id="landing-demo-total" style="font-family:var(--font-mono); font-size:1.25rem; font-weight:700; color:var(--text);">1 490 ₽ / мес</div>
+            </div>
+            <button type="button" id="landing-demo-order" class="btn btn-primary btn-sm">Оформить демо-заказ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <i data-lucide="check" width="16" height="16" style="color:var(--accent);" aria-hidden="true"></i>
+    <span id="toast-text">Готово</span>
+  </div>
 </body>
 </html>
